@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<script>
+	window.localStorage;
+	console.log(localStorage);
+	//设置
+	 localStorage.name="zhangsan";
+	 localStorage.setItem("age",17);
+	 localStorage["sex"]="man";
+	 localStorage.name="lisi";
+	 //获取
+	  console.log(localStorage.name);
+	  console.log(localStorage.["sex"]);
+	  console.log(localStorage.getItem("age"));
+	  //删除
+	  localStorage.removeItem("name");
+	  //清空
+	   localStorage.clear();
+	  //遍历
+	  console.log(localStorage);
+	  for(let i=0;i<localStorage;i++){
+	  console.log(localStorage.key("i"));
+	  }
+
+</script>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	table{
+		width: 600px;
+		margin: 0 auto;
+		text-align: center;
+		border: 1px solid #ccc;
+		border-collapse: collapse;
+	}
+	td,tr{
+		border-bottom: 1px solid #ccc;
+		height: 30px;
+		width: 150px;
+	}
+	td input{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		border: 0;
+	}
+	thead{
+		background:#ccc;
+	}
+	.del{
+		color: red;
+		cursor: pointer;
+	}
+	.add{
+		cursor: pointer;
+	}
+</style>
+</head>
+<body>
+	 <table>
+    	<thead>
+    		<tr>
+    			<th>姓名</th>
+    			<th>年龄</th>
+    			<th>性别</th>
+    			<th>操作</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr>
+    			<td>张三</td>
+    			<td>19</td>
+    			<td>男</td>
+    			<td class="del">删除</td>
+    		</tr>
+    	</tbody>
+    	<tfoot>
+    		<td colspan="4" class="add">+</td>
+    	</tfoot>
+    </table>
+</body>
+<script>
+	// let adds=document.querySelector(".add");
+	// let tbody=document.querySelector("tbody");
+	// function getData(){
+	// 	if(localStorage.table!==""){
+	// 		return JSON.parse(localStorage.table)}else{
+	// 			return [];}
+	// 	// return localStorage.table?JSON.parse(localStorage.table):[];
+	// }
+	// function saveData(data){
+	// 		localStorage.table=JSON.stringify(data);
+	// }
+	// function render(){
+	// 	let data=getData();
+	// 	let str="";
+	// 	data.forEach(function(obj,index){
+	// 		str+=`<tr><td>${obj.name}</td><td>${obj.age}</td><td>${obj.sex}</td><td class="del">删除</td></tr>`;
+	// 		tbody.appendChild(str);
+	// 	})
+		
+
+	// }
+	// render();
+	// adds.onclick=function(){
+	// 		let data=getData();
+	// 		data.push({name:"",age:"",sex:""});
+	// 		saveData(data);
+	// 		render();
+	// }
+	// tbody.onclick=function(e){
+	// 	let target=e.target;
+	// 	if(target.className="del"){
+	// 		let data=getData();
+	// 		let index=target.parentNode.id;
+	// 		data.splice(index,1);
+	// 		saveData();
+	// 		render();
+	// 	}
+	// }
+	// //修改
+	// tbody.ondblclick=function(e){
+	// 	//获取目标事件源
+	// 	let target=e.target;
+		
+		
+	// 	if(target.className!=="del"){
+	// 		let index=target.parentNode.id;
+	// 		let attr=target.className;
+	// 		let input1=document.createElement("input");
+	// 		let text=target.innerHTML;
+	// 		target.innerHTML="";
+	// 		input.value=text;		
+	// 		target.appendChild(input1);
+	// 		input1.focus(); 
+					
+	// 		input1.onblur=function(){
+						
+	// 			let val=this.value;
+	// 		target[index][attr]=val;
+	// 			saveData();
+	// 			render();
+	// 				}
+	// 	}
+	// }
+	// 
+	// 
+		function  getData(){
+			return  localStorage.table?JSON.parse(localStorage.table):[];
+		}
+		function saveData(data){
+			localStorage.table=JSON.stringify(data);
+		}
+		let adds=document.querySelector(".add");
+		let tbody=document.querySelector("tbody");
+		adds.onclick=function(){
+			let data=getData();
+			data.push({name:"",age:"",sex:""});
+			saveData();
+			render();
+		}
+		function render(){
+			let data=getData();
+			let str="";
+			data.forEach(function(obj,index){
+				str+=`<tr id="${index}"><td class="name">${obj.name}</td><td class="age">${obj.age}</td><td class="sex">${obj.sex}</td><td class="del">删除</td></tr>`
+			});
+				tbody.innerHTML=str;
+		}
+		render();
+		tbody.onclick=function(e){
+			let target=e.target;
+			if(target.className==="del"){
+				let data=getData();
+				let index=target.parentNode.index;
+				data.splice(index,1);
+				saveData();
+				render();
+
+			}
+		}
+		tbody.ondblclick=function(e){
+			let target=e.target;
+			if(target.className!=="del"){
+				let data=getData();
+				let index=target.parentNode.index;
+				let attr=target.className;
+
+				let input=document.createElement("input");
+				input.value=target.innerHTML;
+				target.innerHTML="";
+				input.onfocus();
+				input.onblur=function(){
+					let val=this.value
+					data[index][attr]=val;
+					saveData();
+					render();
+				}
+
+			}
+		}
+</script>
+</html>

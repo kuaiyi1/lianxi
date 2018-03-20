@@ -162,13 +162,13 @@
 			let target=e.target;
 			if(target.className!=="del"){
 				let data=getData();
-				let index=target.parentNode.index;
+				let index=target.parentNode.id;
 				let attr=target.className;
 
 				let input=document.createElement("input");
 				input.value=target.innerHTML;
 				target.innerHTML="";
-				input.onfocus();
+				input.focus();
 				input.onblur=function(){
 					let val=this.value
 					data[index][attr]=val;

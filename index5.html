@@ -153,7 +153,7 @@
 				let data=getData();
 				let index=target.parentNode.index;
 				data.splice(index,1);
-				saveData();
+				saveData(data);
 				render();
 
 			}
@@ -172,7 +172,7 @@
 				input.onblur=function(){
 					let val=this.value
 					data[index][attr]=val;
-					saveData();
+					saveData(data);
 					render();
 				}
 

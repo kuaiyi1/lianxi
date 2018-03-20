@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.con{
+		width: 300px;
+		height: 300px;
+		border: 1px solid #ccc;
+		margin: 0 auto;
+		position: relative;
+	}
+	#text{
+		width: 100%;
+		height: 100px;
+		padding: 20px;
+		border: none;
+		border-bottom: 1px solid #ccc;
+		font-weight: bold;
+		resize: none;
+		box-sizing: border-box;
+	}
+	#text.active{
+			outline: none;
+
+	}
+	#count{
+		width: 50px;
+		height: 30px;
+		line-height: 30px;
+		color: #999;
+		position: absolute;
+		top: 70px;
+		right: 0;
+		font-size: 14px;
+		text-align: center;
+	}
+	#submit{
+         width: 60px;
+         height: 20px;
+         margin: 0 auto 40px;
+         border-radius: 5px;
+         background-color: blue;
+         font-size: 14px;
+         text-align: center;
+         line-height: 20px;
+         color: #333;
+         cursor: pointer;
+         
+        
+
+	}
+	.content{
+		width: 100%;
+		height: 100px;
+		color: #333;
+		font-size: 14px;
+		border-top: 1px solid #ccc;
+		padding: 5px 0 0;
+	     overflow: auto;
+
+	}
+	.content p{
+		background-color: #ccc;
+		line-height: 20px;
+		position: relative;
+		margin: 2px 0;
+	}
+	.content p span{
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		margin: auto;
+		background: red;
+		width: 50px;
+		height: 20px;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
+</style>
+<body>
+	<div class="con">
+		<textarea  id="text" placeholder="记录此刻的心情"></textarea>
+		<div id="count"><span>40</span>/<span id="now">0</span></div>
+		<div id="submit">提交</div>
+		<div class="content">
+			<p>内容</p>
+		</div>
+	</div>
+</body>
+<script>
+	console.log(window);
+	let textarea=document.querySelector("#text");
+	let now=document.querySelector("#now");
+	function getData(){
+		// if(window.localStorage.message){
+		// 	return JSON.parse(localStorage.message)}else{
+		// 		return [];}
+		return localStorage.message?JSON.parse(localStorage.message):[];
+	}
+
+	function saveData(data){
+			localStorage.message=JSON.stringify(data);
+	}
+	function render(){
+		let data=getData();
+		 data.forEach(function(value,index){
+		 	let newM=document.createElement("p");
+		 	newM.innerHTML=value+"<span id="+index+">删除</span>";
+		 	content.appendChild(newM);
+		 })
+	}
+	render();
+	textarea.onkeyup=count;
+	// textarea.onkeydown=count;
+	function count(){
+      let val1=this.value;
+      let length=val1.length;
+      if(length>40){
+      	length=40;
+      	this.value=val1.slice(0,40);	
+      }
+      now.innerHTML=length;
+	}
+	let submit=document.querySelector("#submit");
+	let content=document.querySelector(".content");
+
+	submit.onclick=sub;
+	function sub(){
+		let val=textarea.value;
+		if(val===""){
+			alert("请输入内容");
+			return;
+		}
+		textarea.value="";
+		now.innerHTML="0";
+
+		let data=getData();
+		data.push(val);
+
+		saveData(data);
+		render();
+		// let newM=document.createElement("p");
+		// newM.innerHTML=val+"<span>删除</span>";
+		// content.appendChild(newM);
+	}
+	// document.onkeydown=function(e){
+		
+
+	// 	if(e.ctrlKey&&e.keyCode===65){
+	// 			sub();
+				
+	// 	}
+	// }
+	content.onclick=function(e){
+			let target=e.target;
+			console.log(target.nodeName);
+			if(target.nodeName==="SPAN"){
+				// if(confirm("确定要删除吗？")){
+				// content.removeChild(target.parentNode);}
+				let data=getData();
+				let index=target.id;
+				data.splice(index,1);
+				saveData(data);
+				render();
+			}
+	}
+	//tagName nodeName
+</script>
+</html>

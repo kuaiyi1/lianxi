@@ -111,24 +111,26 @@
   	function render(){
   		var data=getData();
   		var str="";
-  		data.foreach(function(val,index){
-  			str+="<li><p>"+val.content+"</p><time>"+val.time+"</time><span></span></li>"
+  		data.forEach(function(val,index){
+  			str+="<li><p>"+val.content+"</p><time>"+parseTime(val.time)+"</time><span></span></li>"
   		})
   		$("ul").html(str);
   	}
   	render();
-  	// function parseTime(time){
-  	// 	var date=new Date();
-  	// 	date.setTime(time);
-  	// 	var year=date.getFullYear();
-  	// 	var month=setZero(date.getMonth()+1);
-  	// 	var date=setZero(date.getDate());
-  	// 	var hour=setZero(date.getHours());
-  	// 	var minte=setZero(date.getMinutes());
-  	// 	var miao=setZero(date.getMilliseconds());
-  	// 	return year+"/"+month+"/"+date+"/"+hour+"/"+minte+""+miao;
+  	function parseTime(time){
+  		var date=new Date();
+  		date.setTime(time);
+  		var year=date.getFullYear();
+  		var month=setZero(date.getMonth()+1);
+  		var date1=setZero(date.getDate());
+  		var hour=setZero(date.getHours());
+  		var minte=setZero(date.getMinutes());
+  		var miao=setZero(date.getSeconds());
+  		return year+"/"+month+"/"+date1+"<br>"+hour+"-"+minte+"-"+miao;
 
-  	// }
-  	// function setZero(){}
+  	}
+  	function setZero(n){
+  		return n<10? 0+"n":n;
+  	}
   </script>
 </html>
